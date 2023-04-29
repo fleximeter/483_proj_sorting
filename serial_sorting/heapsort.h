@@ -10,7 +10,6 @@ Rivest, and Stein, chapter 6
 
 #ifndef HEAPSORT_SERIAL
 #define HEAPSORT_SERIAL
-#include <stdio.h>
 
 static void BuildMaxHeap(double *arr, int length);
 void HeapSort(double *arr, int length);
@@ -64,8 +63,6 @@ static void MaxHeapify(double *arr, int length, int heap_size, int i) {
         if (l < length) {
             if (l < heap_size && arr[l] > arr[i]) {
                 largest = l;
-            } else {
-                largest = i;
             }
         }
 
@@ -85,7 +82,5 @@ static void MaxHeapify(double *arr, int length, int heap_size, int i) {
         }
     }
 }
-
-
 
 #endif
