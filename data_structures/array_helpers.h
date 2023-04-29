@@ -9,6 +9,8 @@ for random seeding and use.
 This is based on a previous version of driver.c in Jeff Martin's Homework 4.
 */
 
+#ifndef ARRAY_HELPERS
+#define ARRAY_HELPERS
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -47,3 +49,5 @@ void print_array(double *arr, int length) {
         printf("%lf, ", arr[i]);
     printf("%lf\n", arr[i]);
 }
+
+#endif
