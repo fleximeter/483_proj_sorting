@@ -37,7 +37,6 @@ void MergeSortParallel(double *arr, int first_index, int last_index, int p, int 
 void MergeSortParallel(double *arr, int first_index, int last_index, int p, int my_rank, 
     MPI_Comm *comm, MPI_Status *status) {
        
-    /* only rank 0 can start the sorting. everyone else waits. */
     if (first_index < last_index) {
         int i;
         int indices[2];

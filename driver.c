@@ -10,32 +10,33 @@ for random seeding and use.
 This is based on a previous version of driver.c in Jeff Martin's Homework 4.
 */
 
-#include "serial_sorting/bucket_sort.h"
+#include "serial_sorting/heapsort.h"
 #include "tests/tests.h"
 #include "tests/timer.h"
 #include "data_structures/array_helpers.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
-#include <math.h>
 
-#define ARR_LEN 128
+#define ARR_LEN 10000
 
 int main(void) {
     time_t t;
     double arr[ARR_LEN];
-    double arr2[ARR_LEN];
+    double time_start, time_end, time_total;
     
     fill_array_rand(arr, ARR_LEN, (unsigned)time(&t));
-    copy_array(arr, arr2, ARR_LEN);
     
-    printf("Before sorting:\n");
-    print_array(arr, ARR_LEN);
+    // printf("Before sorting:\n");
+    // print_array(arr, ARR_LEN);
 
-    BucketSort(arr, ARR_LEN);
+    GET_TIME(time_start);
+    HeapSort(arr, ARR_LEN);
+    GET_TIME(time_end);
+    time_total = time_end - time_start;
+    printf("The total time taken for sorting was %lf\n\n", time_total);
 
-    printf("After sorting:\n");
-    print_array(arr, ARR_LEN);
+    // printf("After sorting:\n");
+    // print_array(arr, ARR_LEN);
 
     if (TestSortCorrectness(arr, ARR_LEN)) {
         printf("The array sorted correctly.\n");

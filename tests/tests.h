@@ -36,7 +36,7 @@ int CompareSortedArrays(double *arr1, double *arr2, int length) {
 int TestSortCorrectness(double *arr, int length) {
     int i;
     for (i = 1; i < length; i++) {
-        if (arr[i] > arr[i-1])
+        if (arr[i] < arr[i-1])
             return 0;
     }
     return 1;
