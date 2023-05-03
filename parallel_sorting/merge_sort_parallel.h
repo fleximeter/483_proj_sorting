@@ -1,7 +1,5 @@
 /*
 File: merge_sort_parallel.h
-Author: Jeff Martin
-Date: 4/22/23
 
 This file implements merge sort.
 Reference: "Introduction to Algorithms, 3rd Edition," by Cormen, Leiserson, Rivest, and Stein

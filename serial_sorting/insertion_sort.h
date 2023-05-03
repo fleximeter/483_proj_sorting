@@ -1,7 +1,5 @@
 /*
 File: insertion_sort.h
-Author: Jeff Martin
-Date: 4/14/23
 
 This file implements insertion sort.
 Reference: "Introduction to Algorithms, 3rd Edition," by Cormen, Leiserson, 

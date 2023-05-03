@@ -1,7 +1,5 @@
 /*
 File: bucket_sort_parallel.h
-Author: Jeff Martin
-Date: 4/15/23
 
 This file implements bucket sort in parallel.
 Reference: "Introduction to Algorithms, 3rd Edition," by Cormen, Leiserson, Rivest, and Stein
