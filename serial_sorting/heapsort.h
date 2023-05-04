@@ -1,7 +1,5 @@
 /*
 File: heapsort.h
-Author: Jeff Martin
-Date: 4/29/23
 
 This file implements heapsort.
 Reference: "Introduction to Algorithms, 3rd Edition," by Cormen, Leiserson, 

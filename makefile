@@ -1,4 +1,5 @@
 # Note: For production and testing speed, DO NOT compile with GDB flags!
+# Adapted from Jeff Martin's HW4 makefile
 
 CC = gcc
 MCC = mpicc
