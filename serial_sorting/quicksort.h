@@ -15,7 +15,7 @@ Rivest, and Stein, chapter 7
 /// @param arr The array to be sorted
 /// @param first_index The first index of the sub array
 /// @param first_index The last index of the sub array
-void Quicksort(int *arr, int first_index, int last_index) {
+void Quicksort(double *arr, int first_index, int last_index) {
     if (first_index < last_index) {
         int q = Partition(arr, first_index, last_index);
         Quicksort(arr, first_index, q - 1);
@@ -27,9 +27,10 @@ void Quicksort(int *arr, int first_index, int last_index) {
 /// @param arr The array to be sorted
 /// @param first_index The first index of the sub array
 /// @param first_index The last index of the sub array
-int Partition(int *arr, int first_index, int last_index) {
-    int j, temp;
-    int pivot = arr[last_index];
+int Partition(double *arr, int first_index, int last_index) {
+    int j;
+    double temp;
+    double pivot = arr[last_index];
     int i = first_index - 1;
     for (j = first_index; j < last_index; j++) {
         if (arr[j] <= pivot) {
