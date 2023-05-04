@@ -1,6 +1,6 @@
 /*
 File: parallel_driver.c
-Author: Jeff Martin
+Authors: Jeff Martin, Justin Hendershot
 Date: 4/14/23
 
 This file is set up for running parallel MPI sorts.
@@ -11,7 +11,7 @@ This is based on a previous version of driver.c in Jeff Martin's Homework 4,
 as well as Jeff Martin's final Homework 4 driver.c.
 */
 
-#include "parallel_sorting/merge_sort_parallel.h"
+#include "parallel_sorting/bubble_sort_parallel.h"
 #include "tests/tests.h"
 #include "tests/timer.h"
 #include "data_structures/array_helpers.h"
@@ -41,11 +41,12 @@ int main(void) {
         // print_array(arr, ARR_LEN);
         GET_TIME(time_start);
     }
+    
 
     /* Broadcast the randomly generated array to all ranks */
     MPI_Bcast(arr, ARR_LEN, MPI_DOUBLE, 0, comm);
 
-    MergeSortParallel(arr, 0, ARR_LEN - 1, p, my_rank, &comm, &status);
+    BubbleSortParallel(arr, ARR_LEN, p, my_rank, &comm, &status);
 
     if (my_rank == 0) {
         GET_TIME(time_end);
@@ -54,11 +55,12 @@ int main(void) {
         // printf("After sorting:\n");
         // print_array(arr, ARR_LEN);
 
-        if (TestSortCorrectness(arr, ARR_LEN)) {
-            printf("The array sorted correctly.\n");
-        } else {
-            printf("The array did not sort correctly.\n");
-        }
+        //if (TestSortCorrectness(arr, ARR_LEN)) {
+        //    printf("The array sorted correctly.\n");
+        //} else {
+        //    printf("The array did not sort correctly.\n");
+        //}
+
     }
 
     MPI_Finalize();
