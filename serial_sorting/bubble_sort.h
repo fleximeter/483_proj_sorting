@@ -15,8 +15,9 @@ and Stein, chapter 2
 /// mechanism is O(n^2).
 /// @param arr The array to be sorted
 /// @param length The length of the array
-void BubbleSort(int *arr, int length) {
-    int i, j, temp;
+void BubbleSort(double *arr, int length) {
+    int i, j;
+    double temp;
     for (i = 0; i < length; i++) {
         /* bubble down from the end */
         for (j = length - 1; j > i; j--) {
