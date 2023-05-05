@@ -8,9 +8,10 @@ This file contains tests to prove the correctness of a sorting algorithm.
 
 #ifndef TESTS_H
 #define TESTS_H
-#include <stdio.h>
 
 int CompareSortedArrays(double *arr1, double *arr2, int length);
+int Efficiency(double serial_time, double parallel_time, int p);
+int Speedup(double serial_time, double parallel_time);
 int TestSortCorrectness(double *arr, int length);
 
 /// @brief Tests if two sorted arrays were sorted the same; i.e. each element
@@ -23,11 +24,27 @@ int CompareSortedArrays(double *arr1, double *arr2, int length) {
     int i;
     for (i = 0; i < length; i++) {
         if (arr1[i] != arr2[i]) {
-            // printf("No match at index %d\n", i);
             return 0;
         }
     }
     return 1;
+}
+
+/// @brief Calculates efficiency
+/// @param serial_time The time taken by a good serial implementation
+/// @param length The time taken by a parallel implementation
+/// @param p The number of processors used
+/// @return The efficiency
+int Efficiency(double serial_time, double parallel_time, int p) {
+    return serial_time / (p * parallel_time);
+}
+
+/// @brief Calculates speedup
+/// @param serial_time The time taken by a good serial implementation
+/// @param length The time taken by a parallel implementation
+/// @return The speedup
+int Speedup(double serial_time, double parallel_time) {
+    return serial_time / parallel_time;
 }
 
 /// @brief Tests if a sort finished correctly; i.e. the numbers in the array
