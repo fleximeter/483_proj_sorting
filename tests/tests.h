@@ -8,6 +8,7 @@ This file contains tests to prove the correctness of a sorting algorithm.
 
 #ifndef TESTS_H
 #define TESTS_H
+#include <stdio.h>
 
 int CompareSortedArrays(double *arr1, double *arr2, int length);
 int TestSortCorrectness(double *arr, int length);
@@ -21,8 +22,10 @@ int TestSortCorrectness(double *arr, int length);
 int CompareSortedArrays(double *arr1, double *arr2, int length) {
     int i;
     for (i = 0; i < length; i++) {
-        if (arr1[i] != arr2[i])
+        if (arr1[i] != arr2[i]) {
+            // printf("No match at index %d\n", i);
             return 0;
+        }
     }
     return 1;
 }

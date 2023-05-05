@@ -2,11 +2,9 @@
 File: parallel_driver.c
 Authors: Jeff Martin, Justin Hendershot
 Date: 4/14/23
-
 This file is set up for running parallel MPI sorts.
 Consulted https://www.tutorialspoint.com/c_standard_library/c_function_rand.htm
 for random seeding and use.
-
 This is based on a previous version of driver.c in Jeff Martin's Homework 4,
 as well as Jeff Martin's final Homework 4 driver.c.
 */
@@ -16,6 +14,7 @@ as well as Jeff Martin's final Homework 4 driver.c.
 #include "tests/timer.h"
 #include "data_structures/array_helpers.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <mpi.h>
 
@@ -30,7 +29,7 @@ int main(void) {
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
     comm = MPI_COMM_WORLD;
 
-    double arr[ARR_LEN];
+    double *arr = (double*)malloc(ARR_LEN * sizeof(double));
     double time_start, time_end, time_total;
     
     /* Initialize the array on rank 0 with random numbers */
@@ -63,6 +62,7 @@ int main(void) {
 
     }
 
+    free(arr);
     MPI_Finalize();
     return 0;
 }
