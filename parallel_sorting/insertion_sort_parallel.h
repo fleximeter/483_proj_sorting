@@ -48,10 +48,10 @@ void InsertionSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *c
         printf("The array did not sort correctly.\n");
     }
 
-/*    MPI_Send(newArr, length, MPI_DOUBLE, 0, 1, *comm);
+/*    MPI_Send(newArr, length, MPI_DOUBLE, 0, 1, *comm);*/
 
     if(my_rank == 0){
-        for(int i = 0; i < p; i++){
+        /*for(int i = 0; i < p; i++){
             MPI_Recv(tempArr, len, MPI_DOUBLE, i, 1, *comm, status);
             print_array(tempArr, len);
 
