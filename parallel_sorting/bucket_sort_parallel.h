@@ -10,7 +10,6 @@ Note: This is from Jeff Martin's Homework 4.
 
 #ifndef BUCKET_SORT_PARALLEL
 #define BUCKET_SORT_PARALLEL
-#include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
 #include "../serial_sorting/bucket_sort.h"
@@ -127,6 +126,9 @@ void BucketSortParallel(double *arr, int length, double a, double b, int p, int 
         VectorDDestruct(&(my_temp_buckets[i]));
     free(my_temp_buckets);
     VectorDDestruct(&my_bucket);
+    
+    /* Force all the processes to end at the same time */
+    MPI_Barrier(*comm);
 }
 
 /// @brief Implements BucketSort as described on p. 201 of CLRS edition 3. We assume that

@@ -10,7 +10,6 @@ Note: This is from Jeff Martin's Homework 4.
 
 #ifndef MERGE_SORT_PARALLEL
 #define MERGE_SORT_PARALLEL
-#include <stdlib.h>
 #include <math.h>
 #include <mpi.h>
 #include "../serial_sorting/merge_sort.h"
@@ -93,6 +92,9 @@ void MergeSortParallel(double *arr, int first_index, int last_index, int p, int 
             }
         }
     }
+    
+    /* Force all the processes to end at the same time */
+    MPI_Barrier(*comm);
 }
 
 #endif
