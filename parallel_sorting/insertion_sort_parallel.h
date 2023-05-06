@@ -13,11 +13,6 @@ Author: Bryan Nguyen
 
 void InsertionSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status);
 
-/// @param arr The array to sort
-/// @param p The number of processes
-/// @param my_rank My MPI rank
-/// @param comm A MPI communicator
-/// @param status A MPI status pointer
 void InsertionSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status) {
     
     double* newArr;
