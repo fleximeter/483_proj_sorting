@@ -10,18 +10,19 @@ Author: Bryan Nguyen
 #include <math.h>
 #include <mpi.h>
 #include "../serial_sorting/counting_sort.h"
+#include "../data_structures/find_max.h"
 
-void CountingSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status);
+void CountingSortParallel(int *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status);
 
 /// @param arr The array to sort
 /// @param p The number of processes
 /// @param my_rank My MPI rank
 /// @param comm A MPI communicator
 /// @param status A MPI status pointer
-void CountingSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status){
+void CountingSortParallel(int *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status){
     // find length of sub array to divide original array evenly based on number of threads
     int count_array_size = (int)(ceil((double)(len) / (double)(p)));
-    double* newArr;
+    int* newArr;
     
 
     CountingSort(arr1, arr2, length, max_val);
