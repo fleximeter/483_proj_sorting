@@ -11,7 +11,7 @@ This is based on a previous version of driver.c in Jeff Martin's Homework 4,
 as well as Jeff Martin's final Homework 4 driver.c.
 */
 
-#include "parallel_sorting/quicksort_parallel.h"
+#include "parallel_sorting/bubble_sort_parallel.h"
 #include "parallel_sorting/merge_sort_parallel.h"
 #include "tests/tests.h"
 #include "tests/timer.h"

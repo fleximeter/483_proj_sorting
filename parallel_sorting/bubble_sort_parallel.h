@@ -24,8 +24,8 @@ void BubbleSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm
 /// @param status A MPI status pointer
 void BubbleSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status) {
     
-    double newArr[len];
-    double tempArr[len];
+    double *newArr = (double*)malloc(len * sizeof(double));
+    double *tempArr = (double*)malloc(len * sizeof(double));
     int number_received = 0;
     int x = 0; 
     int length = 0;
@@ -67,6 +67,12 @@ void BubbleSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm
     } else {
         MPI_Send(newArr, length, MPI_DOUBLE, 0, 1, *comm);
     }
+
+    free(newArr);
+    free(tempArr);
+    
+    /* Force all the processes to end at the same time */
+    MPI_Barrier(*comm);
 }
 
 #endif

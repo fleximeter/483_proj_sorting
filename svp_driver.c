@@ -12,7 +12,15 @@ as well as Jeff Martin's final Homework 4 driver.c.
 */
 
 #include "parallel_sorting/bubble_sort_parallel.h"
+// #include "parallel_sorting/insertion_sort_parallel.h"
+// #include "parallel_sorting/bucket_sort_parallel.h"
+// #include "parallel_sorting/merge_sort_parallel.h"
+// #include "parallel_sorting/quicksort_parallel.h"
 #include "serial_sorting/bubble_sort.h"
+// #include "serial_sorting/insertion_sort.h"
+// #include "serial_sorting/bucket_sort.h"
+// #include "serial_sorting/merge_sort.h"
+// #include "serial_sorting/quicksort.h"
 #include "tests/tests.h"
 #include "tests/timer.h"
 #include "data_structures/array_helpers.h"
@@ -31,8 +39,8 @@ int main(void) {
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
     comm = MPI_COMM_WORLD;
 
-    double s_arr[ARR_LEN];
-    double p_arr[ARR_LEN];
+    double *s_arr = (double*)malloc(ARR_LEN * sizeof(double));
+    double *p_arr = (double*)malloc(ARR_LEN * sizeof(double));
     double s_time_start, s_time_end, s_time_total;
     double p_time_start, p_time_end, p_time_total;
     double speedup_total, efficiency_total;
@@ -48,23 +56,36 @@ int main(void) {
             /* Times serial sort */
             GET_TIME(s_time_start);
             BubbleSort(s_arr, ARR_LEN);
+            // InsertionSort(s_arr, ARR_LEN);
+            // BucketSort(s_arr, ARR_LEN);
+            // MergeSort(s_arr, 0, ARR_LEN - 1);
+            // QuickSort(s_arr, 0, ARR_LEN - 1);
             GET_TIME(s_time_end);
 
             /* Calculates the time taken for parallel sorting*/
             s_time_total = s_time_end - s_time_start;
             printf("The total time taken for serial sorting was %lf\n", s_time_total);
+            MPI_Barrier(comm);
 
             GET_TIME(p_time_start);
+        } else {
+            MPI_Barrier(comm);
         }
+
 
         /* Broadcast the randomly generated array to all ranks */
         MPI_Bcast(p_arr, ARR_LEN, MPI_DOUBLE, 0, comm);
 
         BubbleSortParallel(p_arr, ARR_LEN, p, my_rank, &comm, &status);
+        // InsertionSortParallel(p_arr, ARR_LEN, p, my_rank, &comm, &status);
+        // BucketSortParallel(p_arr, ARR_LEN, 0, 1, p, my_rank, &comm, &status);
+        // MergeSortParallel(p_arr, 0, ARR_LEN - 1, p, my_rank, &comm, &status);
+        // QuickSortParallel(p_arr, 0, ARR_LEN - 1, p, my_rank, &comm, &status);
 
         if (my_rank == 0) {
             /* Calculates the time taken for parallel sorting*/
             GET_TIME(p_time_end);
+            MPI_Barrier(comm);
             p_time_total = p_time_end - p_time_start;
             printf("The total time taken for parallel sorting was %lf\n", p_time_total);
 
@@ -75,9 +96,21 @@ int main(void) {
                 printf("Speedup: %f\n", Speedup(s_time_total, p_time_total));
                 efficiency_total += Efficiency(s_time_total, p_time_total, p);
                 speedup_total += Speedup(s_time_total, p_time_total);
+            } else if (TestSortCorrectness(p_arr, ARR_LEN)) {
+                printf("The serial sort did not sort correctly.\n");
+            } else if (TestSortCorrectness(s_arr, ARR_LEN)) {
+                printf("The parallel sort did not sort correctly.\n");
+                // Uncomment the lines below to output the sorted arrays, so you can compare them.
+                // printf("After sorting (serial):\n");
+                // print_array(s_arr, ARR_LEN);
+                // printf("After sorting (parallel):\n");
+                // print_array(p_arr, ARR_LEN);
+
             } else {
-                printf("The arrays did not sort correctly.\n");
-            }
+                printf("Both serial and parallel sorts did not sort correctly.\n");
+            } 
+        } else {
+            MPI_Barrier(comm);
         }
     }
 
@@ -87,6 +120,8 @@ int main(void) {
         printf("Average Speedup over %d runs: %f\n", num_tests, (speedup_total / (double)num_tests));
     }
 
+    free(s_arr);
+    free(p_arr);
     MPI_Finalize();
     return 0;
 }

@@ -30,7 +30,7 @@ void QuickSortParallel(double *arr, int first_index, int last_index, int p, int 
     less than 4 * p numbers to sort, we'll just use the serial version. */
     if (last_index - first_index + 1 < 4 * p) {
         if (my_rank == 0) {
-            Quicksort(arr, first_index, last_index);
+            QuickSort(arr, first_index, last_index);
         }
     }
 
@@ -91,7 +91,7 @@ void QuickSortParallel(double *arr, int first_index, int last_index, int p, int 
         }
 
         /* At this point, I should know what part of the array I am sorting. */
-        Quicksort(arr, first_index, last_index);
+        QuickSort(arr, first_index, last_index);
 
         /* Now I need to combine the data */
         if (my_rank == 0) {

@@ -14,18 +14,18 @@ Rivest, and Stein, chapter 7
 
 int Partition(double *arr, int first_index, int last_index);
 int PartitionRand(double *arr, int first_index, int last_index, int rand_val);
-void Quicksort(double *arr, int first_index, int last_index);
+void QuickSort(double *arr, int first_index, int last_index);
 
 /// @brief Implements Quicksort as described on p. 171 of CLRS edition 3. This sorting
 /// mechanism is O(n^2).
 /// @param arr The array to be sorted
 /// @param first_index The first index of the sub array
 /// @param first_index The last index of the sub array
-void Quicksort(double *arr, int first_index, int last_index) {
+void QuickSort(double *arr, int first_index, int last_index) {
     if (first_index < last_index) {
         int q = Partition(arr, first_index, last_index);
-        Quicksort(arr, first_index, q - 1);
-        Quicksort(arr, q + 1, last_index);
+        QuickSort(arr, first_index, q - 1);
+        QuickSort(arr, q + 1, last_index);
     }
 }
 
