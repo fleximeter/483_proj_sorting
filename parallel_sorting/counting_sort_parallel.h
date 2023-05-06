@@ -21,6 +21,8 @@ void CountingSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *co
 void CountingSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status){
     // find length of sub array to divide original array evenly based on number of threads
     int count_array_size = (int)(ceil((double)(len) / (double)(p)));
+    double* newArr;
+    
 
     CountingSort(arr1, arr2, length, max_val);
     
