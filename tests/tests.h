@@ -2,7 +2,6 @@
 File: tests.h
 Author: Jeff Martin
 Date: 4/29/23
-
 This file contains tests to prove the correctness of a sorting algorithm.
 */
 
@@ -10,8 +9,8 @@ This file contains tests to prove the correctness of a sorting algorithm.
 #define TESTS_H
 
 int CompareSortedArrays(double *arr1, double *arr2, int length);
-int Efficiency(double serial_time, double parallel_time, int p);
-int Speedup(double serial_time, double parallel_time);
+double Efficiency(double serial_time, double parallel_time, int p);
+double Speedup(double serial_time, double parallel_time);
 int TestSortCorrectness(double *arr, int length);
 
 /// @brief Tests if two sorted arrays were sorted the same; i.e. each element
@@ -35,7 +34,7 @@ int CompareSortedArrays(double *arr1, double *arr2, int length) {
 /// @param length The time taken by a parallel implementation
 /// @param p The number of processors used
 /// @return The efficiency
-int Efficiency(double serial_time, double parallel_time, int p) {
+double Efficiency(double serial_time, double parallel_time, int p) {
     return serial_time / (p * parallel_time);
 }
 
@@ -43,7 +42,7 @@ int Efficiency(double serial_time, double parallel_time, int p) {
 /// @param serial_time The time taken by a good serial implementation
 /// @param length The time taken by a parallel implementation
 /// @return The speedup
-int Speedup(double serial_time, double parallel_time) {
+double Speedup(double serial_time, double parallel_time) {
     return serial_time / parallel_time;
 }
 
