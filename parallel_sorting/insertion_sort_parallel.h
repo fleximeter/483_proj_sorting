@@ -1,6 +1,11 @@
 /*
-File: insertion_sort_parallel.h
-Author: Bryan Nguyen
+File: Insertion_sort_parallel.h
+Author: Justin Hendershot
+Date: 4/22/23
+
+This file implements insertion sort.
+Reference: https://iq.opengenus.org/parallel-bubble-sort/#:~:text=Parallel%20bubble%20sort%20is%20a,machines%20and%20computer%20programming%20generally
+Used for the structure of the parallel algorithm
 */
 
 #ifndef INSERTION_SORT_PARALLEL
@@ -13,20 +18,27 @@ Author: Bryan Nguyen
 
 void InsertionSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status);
 
+/// @param arr The array to sort
+/// @param p The number of processes
+/// @param my_rank My MPI rank
+/// @param comm A MPI communicator
+/// @param status A MPI status pointer
 void InsertionSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm, MPI_Status *status) {
     
-    double* newArr;
-
-    newArr = (double*)malloc(len * sizeof(double));
+    double *newArr = (double*)malloc(len * sizeof(double));
+    double *tempArr = (double*)malloc(len * sizeof(double));
+    int number_received = 0;
     int x = 0; 
     int length = 0;
-    double tempArr[len];
-
+    
+    //Calculates the range of numbers to be sent to a thread
     double low = (1 / (double)p) * (double)my_rank;
     double high = (1 / (double)p) * (double)(my_rank + 1);
 
-    printf("Thread:%d : %f, %f\n", my_rank, low, high);
+    //Prints which range of numbers are going to this thread
+    //printf("Thread:%d : %f, %f\n", my_rank, low, high);
 
+    //Finds each number between the range from the main array and puts it in a temp array
     for(int i = 0; i < len; i++){
         if((arr[i] <= high) && (arr[i] > low)){
             newArr[x] = arr[i];
@@ -35,23 +47,33 @@ void InsertionSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *c
         }
     }
 
-    InsertionSort(newArr, length);
-    
-    if (TestSortCorrectness(newArr, length)) {
-        printf("The array sorted correctly.\n");
-    } else {
-        printf("The array did not sort correctly.\n");
-    }
+    //Calls serial bubble sort of the temp array
+    InsertionSortD(newArr, length);
 
-/*    MPI_Send(newArr, length, MPI_DOUBLE, 0, 1, *comm);*/
-
-    if(my_rank == 0){
-        /*for(int i = 0; i < p; i++){
+    //Combines each temp array back into the original array
+    if (my_rank == 0){
+        int y = 0;
+        for(int x = 0; x < length; x++){
+            arr[y] = newArr[x];
+            y++;
+        }
+        for (int i = 1; i < p; i++) {
             MPI_Recv(tempArr, len, MPI_DOUBLE, i, 1, *comm, status);
-            print_array(tempArr, len);
-
-        }*/
+            MPI_Get_count(status, MPI_DOUBLE, &number_received);
+            for(int x = 0; x < number_received; x++){
+                arr[y] = tempArr[x];
+                y++;
+            }
+        }
+    } else {
+        MPI_Send(newArr, length, MPI_DOUBLE, 0, 1, *comm);
     }
+
+    free(newArr);
+    free(tempArr);
+    
+    /* Force all the processes to end at the same time */
+    MPI_Barrier(*comm);
 }
 
 #endif
