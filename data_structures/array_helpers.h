@@ -50,4 +50,12 @@ void print_array(double *arr, int length) {
     printf("%lf\n", arr[i]);
 }
 
+void print_array_ends(double *arr, int length){
+    int i;
+    for (i = 0; i < 5; i++)
+        printf("%lf, ", arr[i]);
+    for (i = length - 6; i < length - 1; i++)
+        printf("%lf, ", arr[i]);
+}
+
 #endif
