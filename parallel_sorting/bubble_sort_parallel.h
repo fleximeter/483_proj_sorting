@@ -53,7 +53,7 @@ void BubbleSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm
     if (my_rank == 0){
         int y = 0;
         for(int x = 0; x < length; x++){
-            arr[y] = tempArr[x];
+            arr[y] = newArr[x];
             y++;
         }
         for (int i = 1; i < p; i++) {
