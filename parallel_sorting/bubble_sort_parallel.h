@@ -39,7 +39,7 @@ void BubbleSortParallel(double *arr, int len, int p, int my_rank, MPI_Comm *comm
 
     //Finds each number between the range from the main array and puts it in a temp array
     for(int i = 0; i < len; i++){
-        if((arr[i] <= high) && (arr[i] > low)){
+        if((arr[i] < high) && (arr[i] >= low)){
             newArr[x] = arr[i];
             x++; 
             length++;
