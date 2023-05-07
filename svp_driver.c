@@ -11,13 +11,13 @@ This is based on a previous version of driver.c in Jeff Martin's Homework 4,
 as well as Jeff Martin's final Homework 4 driver.c.
 */
 
-#include "parallel_sorting/bubble_sort_parallel.h"
-// #include "parallel_sorting/insertion_sort_parallel.h"
+// #include "parallel_sorting/bubble_sort_parallel.h"
+#include "parallel_sorting/insertion_sort_parallel.h"
 // #include "parallel_sorting/bucket_sort_parallel.h"
 // #include "parallel_sorting/merge_sort_parallel.h"
 // #include "parallel_sorting/quicksort_parallel.h"
-#include "serial_sorting/bubble_sort.h"
-// #include "serial_sorting/insertion_sort.h"
+// #include "serial_sorting/bubble_sort.h"
+#include "serial_sorting/insertion_sort.h"
 // #include "serial_sorting/bucket_sort.h"
 // #include "serial_sorting/merge_sort.h"
 // #include "serial_sorting/quicksort.h"
@@ -55,8 +55,8 @@ int main(void) {
             
             /* Times serial sort */
             GET_TIME(s_time_start);
-            BubbleSort(s_arr, ARR_LEN);
-            // InsertionSort(s_arr, ARR_LEN);
+            //BubbleSort(s_arr, ARR_LEN);
+            InsertionSortD(s_arr, ARR_LEN);
             // BucketSort(s_arr, ARR_LEN);
             // MergeSort(s_arr, 0, ARR_LEN - 1);
             // QuickSort(s_arr, 0, ARR_LEN - 1);
@@ -76,8 +76,8 @@ int main(void) {
         /* Broadcast the randomly generated array to all ranks */
         MPI_Bcast(p_arr, ARR_LEN, MPI_DOUBLE, 0, comm);
 
-        BubbleSortParallel(p_arr, ARR_LEN, p, my_rank, &comm, &status);
-        // InsertionSortParallel(p_arr, ARR_LEN, p, my_rank, &comm, &status);
+        //BubbleSortParallel(p_arr, ARR_LEN, p, my_rank, &comm, &status);
+        InsertionSortParallel(p_arr, ARR_LEN, p, my_rank, &comm, &status);
         // BucketSortParallel(p_arr, ARR_LEN, 0, 1, p, my_rank, &comm, &status);
         // MergeSortParallel(p_arr, 0, ARR_LEN - 1, p, my_rank, &comm, &status);
         // QuickSortParallel(p_arr, 0, ARR_LEN - 1, p, my_rank, &comm, &status);
