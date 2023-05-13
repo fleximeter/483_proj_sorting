@@ -40,7 +40,7 @@ int main(void) {
 
     int num_tests = 10;
     int num_arrays = 1;
-    int base_array_size = 1000000;
+    int base_array_size = 100000;
     int array_size = p * base_array_size;
     double s_time_start, s_time_end, s_time_total;
     double p_time_start, p_time_end, p_time_total;
