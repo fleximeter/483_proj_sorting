@@ -7,7 +7,7 @@ CFLAGSGDB = -ggdb -Wall -lm
 CFLAGS = -Wall -lm
 EXE = driver
 
-all: driver parallel_driver svp_driver svp_driver_strong_scale
+all: driver parallel_driver svp_driver svp_driver_weak_scale
 
 driver: driver.c
 	$(CC) $(CFLAGSGDB) driver.c -o $(EXE)
@@ -18,11 +18,11 @@ parallel_driver: parallel_driver.c
 svp_driver: svp_driver.c
 	$(MCC) $(CFLAGSGDB) svp_driver.c -o svp_driver
 
-svp_driver_strong_scale: svp_driver_strong_scale.c
-	$(MCC) $(CFLAGSGDB) svp_driver_strong_scale.c -o svp_driver_strong_scale
+svp_driver_weak_scale: svp_driver_weak_scale.c
+	$(MCC) $(CFLAGSGDB) svp_driver_weak_scale.c -o svp_driver_weak_scale
 
 clean:
-	rm -f *.o *.gch driver parallel_driver svp_driver svp_driver_strong_scale
+	rm -f *.o *.gch driver parallel_driver svp_driver svp_driver_weak_scale
 
 val:
 	valgrind --track-origins=yes -s ./$(EXE)

@@ -1,9 +1,9 @@
 /*
-File: svp_driver_strong_scale.c
+File: svp_driver_weak_scale.c
 Authors: Jeff Martin, Justin Hendershot
 Date: 4/14/23
 
-This file is set up for running parallel MPI sorts, and determining strong
+This file is set up for running parallel MPI sorts, and determining weak
 scalability.
 Consulted https://www.tutorialspoint.com/c_standard_library/c_function_rand.htm
 for random seeding and use.
